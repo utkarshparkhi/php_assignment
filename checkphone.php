@@ -3,8 +3,8 @@ $conn = mysqli_connect('localhost','utkarsh','pass','ass');
 
 if ($conn){
 
-	$mail = $_GET['email'];
-	$query = 'SELECT email from users where email="'.$mail.'";';
+	$phone = $_GET['phone'];
+	$query = "SELECT phone from users where phone=$phone;";
 	$count = mysqli_query($conn,$query);
 	
 	if (mysqli_num_rows($count)==1){
@@ -15,6 +15,7 @@ if ($conn){
 		
 		
 	}
+	
 	
 }
 mysqli_close($conn);

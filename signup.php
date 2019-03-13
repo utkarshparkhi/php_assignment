@@ -11,13 +11,20 @@ if ($conn) {
 	$mail = $_POST['email'];
 	$age = $_POST['age'];
 	$phone = $_POST['phone'];
+	$name = $_POST["name"];
+	$gender = $_POST['gender'];
 	
-	$query = "INSERT INTO users(email,age,name,phone,password) VALUES('$mail',$age,'$name',$phone,'$password');";
+	if ((preg_match("/^[a-zA-Z ]*$/",$name)) and (filter_var($mail, FILTER_VALIDATE_EMAIL))) {
+	
 
-	echo '<a href= "login.html">you have been registered</a>'	;
+	$query = "INSERT INTO users(email,age,name,phone,password,gender) VALUES('$mail',$age,'$name',$phone,'$password','$gender');";
+
+	
 	
 	
 	mysqli_query($conn, $query);
+	echo '<a href= "loginf.html">you have been registered</a>'	;
+}
 }
 else{
 	echo '<a href = "signup.html">there is a problem please try again</a>';

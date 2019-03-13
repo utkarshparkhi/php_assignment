@@ -6,8 +6,28 @@ function phonenumberverify() {
   }
   else if (pnumberreg.test(pnumber)) {
     document.getElementById("phoneinvalid").style.display = "none"
-    return true;
+    xhttp = new XMLHttpRequest();
+    xhttp.open("GET",'checkphone.php?phone='+pnumber,true);
+    xhttp.send();
+    xhttp.onreadystatechange = function(){
+    if(xhttp.responseText == 'gtg'){
+      var flag= true
+      document.getElementById('phoneavail').style.display = 'flex'
+     document.getElementById('phonenot').style.display= 'none'
+      
+      
+    }
+    else{
+      var flag = false
+            document.getElementById('phoneavail').style.display = 'none'
+            document.getElementById('phonenot').style.display= 'flex'
+      
+    }
+    
+    if (flag){return true}
+      else{return false;
   }
+}}
   else {
     document.getElementById("phoneinvalid").style.display = "flex"
     return false;
@@ -41,18 +61,27 @@ function emailverify() {
         xhttp = new XMLHttpRequest();
         xhttp.open("GET",'checkusername.php?email='+email,true);
         xhttp.send();
+        
         xhttp.onreadystatechange = function(){
         if(xhttp.responseText == 'gtg'){
+          var flag= true
           document.getElementById('emailavail').style.display = 'flex'
-         
-          document.getElementById('emailnot').style.display = 'none'
+         document.getElementById('emailnot').style.display = 'none'
+          
+          
+        }
+        else{
+          var flag = false
+          
+          document.getElementById('emailavail').style.display = 'none'
+          document.getElementById('emailnot').style.display = 'flex'
+        }
+        }
+        if(flag){
           return true
         }
         else{
-          document.getElementById('emailnot').style.display = 'flex'
-          document.getElementById('emailavail').style.display = 'none'
           return false
-        }
         }
         }
       
@@ -61,6 +90,7 @@ function emailverify() {
         return false;
 
   }
+
 }
 function confpass() {
   pass = document.getElementsByName("password")[0].value;
@@ -76,8 +106,8 @@ function confpass() {
 }
 function nameverify(){
   name = document.getElementsByName("name")[0].value
-  namereg = "^[\\p{L} .'-]+$"
-  if (namereg.test(name)){
+  namereg = new RegExp("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")
+  if ( namereg.test(name) ){
     return true
 
   }
